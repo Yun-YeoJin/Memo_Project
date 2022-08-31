@@ -24,6 +24,13 @@
 		AE123E1F28BF3CAD00CC18CD /* BaseCollecionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E1E28BF3CAD00CC18CD /* BaseCollecionViewCell.swift */; };
 		AE123E2128BF3CB700CC18CD /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2028BF3CB700CC18CD /* BaseTableViewCell.swift */; };
 		AE123E2328BF401A00CC18CD /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2228BF401A00CC18CD /* UIViewController+Extension.swift */; };
+		AE123E2928BF4C4300CC18CD /* StartPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2828BF4C4300CC18CD /* StartPopupViewController.swift */; };
+		AE123E2B28BF4C5100CC18CD /* StartPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2A28BF4C5100CC18CD /* StartPopupView.swift */; };
+		AE123E2D28BF4CA300CC18CD /* MemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2C28BF4CA300CC18CD /* MemoListViewController.swift */; };
+		AE123E2F28BF4CBD00CC18CD /* MemoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E2E28BF4CBD00CC18CD /* MemoListTableViewCell.swift */; };
+		AE123E3128BF4CCA00CC18CD /* MemoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E3028BF4CCA00CC18CD /* MemoListView.swift */; };
+		AE123E3328BF4CDE00CC18CD /* MemoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E3228BF4CDE00CC18CD /* MemoDetailViewController.swift */; };
+		AE123E3528BF4CEB00CC18CD /* MemoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E3428BF4CEB00CC18CD /* MemoDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +51,13 @@
 		AE123E1E28BF3CAD00CC18CD /* BaseCollecionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollecionViewCell.swift; sourceTree = "<group>"; };
 		AE123E2028BF3CB700CC18CD /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		AE123E2228BF401A00CC18CD /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		AE123E2828BF4C4300CC18CD /* StartPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPopupViewController.swift; sourceTree = "<group>"; };
+		AE123E2A28BF4C5100CC18CD /* StartPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartPopupView.swift; sourceTree = "<group>"; };
+		AE123E2C28BF4CA300CC18CD /* MemoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListViewController.swift; sourceTree = "<group>"; };
+		AE123E2E28BF4CBD00CC18CD /* MemoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListTableViewCell.swift; sourceTree = "<group>"; };
+		AE123E3028BF4CCA00CC18CD /* MemoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListView.swift; sourceTree = "<group>"; };
+		AE123E3228BF4CDE00CC18CD /* MemoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailViewController.swift; sourceTree = "<group>"; };
+		AE123E3428BF4CEB00CC18CD /* MemoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +102,9 @@
 				AE123E1928BF3C7500CC18CD /* BaseView */,
 				AE123DF928BF356D00CC18CD /* Main.storyboard */,
 				AE123DFC28BF356F00CC18CD /* Assets.xcassets */,
+				AE123E2628BF442C00CC18CD /* MemoDetail */,
+				AE123E2528BF442A00CC18CD /* MemoList */,
+				AE123E2428BF442700CC18CD /* StartPopup */,
 				AE123DFE28BF356F00CC18CD /* LaunchScreen.storyboard */,
 				AE123E0128BF356F00CC18CD /* Info.plist */,
 			);
@@ -136,6 +153,34 @@
 				AE123E2028BF3CB700CC18CD /* BaseTableViewCell.swift */,
 			);
 			path = BaseView;
+			sourceTree = "<group>";
+		};
+		AE123E2428BF442700CC18CD /* StartPopup */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E2828BF4C4300CC18CD /* StartPopupViewController.swift */,
+				AE123E2A28BF4C5100CC18CD /* StartPopupView.swift */,
+			);
+			path = StartPopup;
+			sourceTree = "<group>";
+		};
+		AE123E2528BF442A00CC18CD /* MemoList */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E2C28BF4CA300CC18CD /* MemoListViewController.swift */,
+				AE123E2E28BF4CBD00CC18CD /* MemoListTableViewCell.swift */,
+				AE123E3028BF4CCA00CC18CD /* MemoListView.swift */,
+			);
+			path = MemoList;
+			sourceTree = "<group>";
+		};
+		AE123E2628BF442C00CC18CD /* MemoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E3228BF4CDE00CC18CD /* MemoDetailViewController.swift */,
+				AE123E3428BF4CEB00CC18CD /* MemoDetailView.swift */,
+			);
+			path = MemoDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,16 +262,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE123E2328BF401A00CC18CD /* UIViewController+Extension.swift in Sources */,
+				AE123E3328BF4CDE00CC18CD /* MemoDetailViewController.swift in Sources */,
+				AE123E3128BF4CCA00CC18CD /* MemoListView.swift in Sources */,
 				AE123E1F28BF3CAD00CC18CD /* BaseCollecionViewCell.swift in Sources */,
 				AE123E1728BF3B8D00CC18CD /* Constant.swift in Sources */,
+				AE123E2F28BF4CBD00CC18CD /* MemoListTableViewCell.swift in Sources */,
 				AE123E1428BF3AAF00CC18CD /* Transition+Extension.swift in Sources */,
+				AE123E2928BF4C4300CC18CD /* StartPopupViewController.swift in Sources */,
 				AE123DF828BF356D00CC18CD /* ViewController.swift in Sources */,
+				AE123E2B28BF4C5100CC18CD /* StartPopupView.swift in Sources */,
 				AE123E0928BF390E00CC18CD /* MemoModel.swift in Sources */,
 				AE123E2128BF3CB700CC18CD /* BaseTableViewCell.swift in Sources */,
 				AE123E1128BF3A6F00CC18CD /* ReusableProtocol.swift in Sources */,
 				AE123E1D28BF3C9500CC18CD /* BaseViewController.swift in Sources */,
+				AE123E2D28BF4CA300CC18CD /* MemoListViewController.swift in Sources */,
 				AE123DF428BF356D00CC18CD /* AppDelegate.swift in Sources */,
 				AE123DF628BF356D00CC18CD /* SceneDelegate.swift in Sources */,
+				AE123E3528BF4CEB00CC18CD /* MemoDetailView.swift in Sources */,
 				AE123E1B28BF3C8B00CC18CD /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
