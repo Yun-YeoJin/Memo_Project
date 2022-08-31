@@ -16,6 +16,9 @@
 		AE123E0928BF390E00CC18CD /* MemoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E0828BF390E00CC18CD /* MemoModel.swift */; };
 		AE123E0C28BF399300CC18CD /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = AE123E0B28BF399300CC18CD /* Realm */; };
 		AE123E0E28BF399300CC18CD /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AE123E0D28BF399300CC18CD /* RealmSwift */; };
+		AE123E1128BF3A6F00CC18CD /* ReusableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E1028BF3A6F00CC18CD /* ReusableProtocol.swift */; };
+		AE123E1428BF3AAF00CC18CD /* Transition+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E1328BF3AAF00CC18CD /* Transition+Extension.swift */; };
+		AE123E1728BF3B8D00CC18CD /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E1628BF3B8D00CC18CD /* Constant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		AE123DFF28BF356F00CC18CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE123E0128BF356F00CC18CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE123E0828BF390E00CC18CD /* MemoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoModel.swift; sourceTree = "<group>"; };
+		AE123E1028BF3A6F00CC18CD /* ReusableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableProtocol.swift; sourceTree = "<group>"; };
+		AE123E1328BF3AAF00CC18CD /* Transition+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+Extension.swift"; sourceTree = "<group>"; };
+		AE123E1628BF3B8D00CC18CD /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,10 +68,13 @@
 		AE123DF228BF356D00CC18CD /* Memo_Project */ = {
 			isa = PBXGroup;
 			children = (
+				AE123E0F28BF3A6000CC18CD /* Protocol */,
 				AE123E0728BF38FF00CC18CD /* Realm */,
-				AE123DF328BF356D00CC18CD /* AppDelegate.swift */,
-				AE123DF528BF356D00CC18CD /* SceneDelegate.swift */,
+				AE123E1228BF3A9800CC18CD /* Extension */,
+				AE123E1528BF3B8100CC18CD /* Utility */,
 				AE123DF728BF356D00CC18CD /* ViewController.swift */,
+				AE123DF528BF356D00CC18CD /* SceneDelegate.swift */,
+				AE123DF328BF356D00CC18CD /* AppDelegate.swift */,
 				AE123DF928BF356D00CC18CD /* Main.storyboard */,
 				AE123DFC28BF356F00CC18CD /* Assets.xcassets */,
 				AE123DFE28BF356F00CC18CD /* LaunchScreen.storyboard */,
@@ -80,6 +89,30 @@
 				AE123E0828BF390E00CC18CD /* MemoModel.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		AE123E0F28BF3A6000CC18CD /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E1028BF3A6F00CC18CD /* ReusableProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		AE123E1228BF3A9800CC18CD /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E1328BF3AAF00CC18CD /* Transition+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		AE123E1528BF3B8100CC18CD /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				AE123E1628BF3B8D00CC18CD /* Constant.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,8 +193,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE123E1728BF3B8D00CC18CD /* Constant.swift in Sources */,
+				AE123E1428BF3AAF00CC18CD /* Transition+Extension.swift in Sources */,
 				AE123DF828BF356D00CC18CD /* ViewController.swift in Sources */,
 				AE123E0928BF390E00CC18CD /* MemoModel.swift in Sources */,
+				AE123E1128BF3A6F00CC18CD /* ReusableProtocol.swift in Sources */,
 				AE123DF428BF356D00CC18CD /* AppDelegate.swift in Sources */,
 				AE123DF628BF356D00CC18CD /* SceneDelegate.swift in Sources */,
 			);
