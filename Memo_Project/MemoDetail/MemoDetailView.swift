@@ -12,6 +12,13 @@ import Then
 
 class MemoDetailView: BaseView {
     
+    let textView = UITextView().then {
+        $0.font = .systemFont(ofSize: 15)
+        $0.textAlignment = .left
+        $0.backgroundColor = .black
+        $0.textColor = .white
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -21,13 +28,15 @@ class MemoDetailView: BaseView {
     }
     
     override func configureUI() {
-        [].forEach {
+        [textView].forEach {
             self.addSubview($0)
         }
     }
     
     override func setConstraints() {
-        
+        textView.snp.makeConstraints { make in
+            make.leading.top.bottom.trailing.equalTo(0)
+        }
     }
     
 }

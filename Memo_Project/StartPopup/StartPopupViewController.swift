@@ -19,7 +19,7 @@ class StartPopupViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        
+        mainView.backgroundView.backgroundColor = .lightGray
         mainView.titleLabel.text =
         """
 처음 오셨군요!
@@ -28,7 +28,12 @@ class StartPopupViewController: BaseViewController {
 당신만의 메모를 작성하고
 관리해보세요!
 """
-
+        mainView.okButton.addTarget(self, action: #selector(okButtonClicked), for: .touchUpInside)
+    }
+    
+    @objc func okButtonClicked() {
+        self.dismiss(animated: true)
+        UserDefaults.standard.set(true, forKey: "SecondRun")
     }
     
     
