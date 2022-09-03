@@ -33,8 +33,6 @@
 		AE123E4628C0C60300CC18CD /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = AE123E4528C0C60300CC18CD /* Then */; };
 		AE123E4928C0C93000CC18CD /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = AE123E4828C0C93000CC18CD /* SnapKit */; };
 		AE123E4B28C0E88200CC18CD /* MemoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E4A28C0E88200CC18CD /* MemoRepository.swift */; };
-		AE123E4D28C0EBD100CC18CD /* MemoListHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E4C28C0EBD100CC18CD /* MemoListHeaderView.swift */; };
-		AE123E5128C0EE8900CC18CD /* BaseTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E5028C0EE8900CC18CD /* BaseTableHeaderView.swift */; };
 		AE123E5328C0F7C700CC18CD /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E5228C0F7C700CC18CD /* String+Extension.swift */; };
 		AE123E5628C106BD00CC18CD /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE123E5528C106BD00CC18CD /* FileManager+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -64,8 +62,6 @@
 		AE123E3228BF4CDE00CC18CD /* MemoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailViewController.swift; sourceTree = "<group>"; };
 		AE123E3428BF4CEB00CC18CD /* MemoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoDetailView.swift; sourceTree = "<group>"; };
 		AE123E4A28C0E88200CC18CD /* MemoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoRepository.swift; sourceTree = "<group>"; };
-		AE123E4C28C0EBD100CC18CD /* MemoListHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoListHeaderView.swift; sourceTree = "<group>"; };
-		AE123E5028C0EE8900CC18CD /* BaseTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableHeaderView.swift; sourceTree = "<group>"; };
 		AE123E5228C0F7C700CC18CD /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		AE123E5528C106BD00CC18CD /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,7 +162,6 @@
 				AE123E1C28BF3C9500CC18CD /* BaseViewController.swift */,
 				AE123E1E28BF3CAD00CC18CD /* BaseCollecionViewCell.swift */,
 				AE123E2028BF3CB700CC18CD /* BaseTableViewCell.swift */,
-				AE123E5028C0EE8900CC18CD /* BaseTableHeaderView.swift */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -185,7 +180,6 @@
 			children = (
 				AE123E2C28BF4CA300CC18CD /* MemoListViewController.swift */,
 				AE123E2E28BF4CBD00CC18CD /* MemoListTableViewCell.swift */,
-				AE123E4C28C0EBD100CC18CD /* MemoListHeaderView.swift */,
 			);
 			path = MemoList;
 			sourceTree = "<group>";
@@ -285,7 +279,6 @@
 				AE123E3328BF4CDE00CC18CD /* MemoDetailViewController.swift in Sources */,
 				AE123E1F28BF3CAD00CC18CD /* BaseCollecionViewCell.swift in Sources */,
 				AE123E1728BF3B8D00CC18CD /* Constant.swift in Sources */,
-				AE123E5128C0EE8900CC18CD /* BaseTableHeaderView.swift in Sources */,
 				AE123E2F28BF4CBD00CC18CD /* MemoListTableViewCell.swift in Sources */,
 				AE123E1428BF3AAF00CC18CD /* Transition+Extension.swift in Sources */,
 				AE123E2928BF4C4300CC18CD /* StartPopupViewController.swift in Sources */,
@@ -296,7 +289,6 @@
 				AE123E5328C0F7C700CC18CD /* String+Extension.swift in Sources */,
 				AE123E1128BF3A6F00CC18CD /* ReusableProtocol.swift in Sources */,
 				AE123E4B28C0E88200CC18CD /* MemoRepository.swift in Sources */,
-				AE123E4D28C0EBD100CC18CD /* MemoListHeaderView.swift in Sources */,
 				AE123E5628C106BD00CC18CD /* FileManager+Extension.swift in Sources */,
 				AE123E1D28BF3C9500CC18CD /* BaseViewController.swift in Sources */,
 				AE123E2D28BF4CA300CC18CD /* MemoListViewController.swift in Sources */,
