@@ -9,18 +9,19 @@ import Foundation
 import RealmSwift
 
 class Memo: Object {
-    @Persisted var title: String //제목(필수)
-    @Persisted var contents: String //내용(필수)
-    @Persisted var date: Date //날짜(필수)
+    @Persisted var memoTitle: String //제목(필수)
+    @Persisted var memoContent: String //내용(필수)
+    @Persisted var memoDate: Date //날짜(필수)
     @Persisted var isPinned: Bool //고정하기
     
     @Persisted(primaryKey: true) var objectID: ObjectId
     
-    convenience init(title: String, content: String) {
+    convenience init(memoTitle: String, memoContent: String, memoDate: Date) {
       self.init()
-      self.title = title
-      self.contents = content
-      self.date = Date()
+        
+      self.memoTitle = memoTitle
+      self.memoContent = memoContent
+      self.memoDate = memoDate
       self.isPinned = false
     }
 }
