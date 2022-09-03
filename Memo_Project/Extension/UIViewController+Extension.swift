@@ -10,10 +10,10 @@ import UIKit
 extension UIViewController {
     
   
-    func showAlertMessage(title: String, buttonTitle: String = "확인") { //매개변수 기본값 설정
+    func showAlertMessage(_ title: String, _ message: String, _ oktitle: String) { //매개변수 기본값 설정
         
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        let ok = UIAlertAction(title: buttonTitle, style: .cancel)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: oktitle, style: .default)
         alert.addAction(ok)
         self.present(alert, animated: true)
         
