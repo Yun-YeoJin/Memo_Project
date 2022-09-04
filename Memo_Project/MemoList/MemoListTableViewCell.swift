@@ -13,19 +13,19 @@ import Then
 class MemoListTableViewCell: BaseTableViewCell {
     
     let titleLabel = UILabel().then {
-        $0.textColor = .black
+        $0.textColor = .white
         $0.textAlignment = .left
-        $0.font = .boldSystemFont(ofSize: 17)
+        $0.font = .boldSystemFont(ofSize: 23)
     }
     
-    let contentsLabel = UILabel().then {
-        $0.textColor = .black
+    let registDateLabel = UILabel().then {
+        $0.textColor = .white
         $0.textAlignment = .left
         $0.font = .systemFont(ofSize: 15)
     }
     
-//    let registDateLabel = UILabel().then {
-//        $0.textColor = .black
+//    let contentLabel = UILabel().then {
+//        $0.textColor = .white
 //        $0.textAlignment = .left
 //        $0.font = .boldSystemFont(ofSize: 15)
 //    }
@@ -33,6 +33,8 @@ class MemoListTableViewCell: BaseTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        
+        self.backgroundColor = .opaqueSeparator
     }
     
     
@@ -42,7 +44,7 @@ class MemoListTableViewCell: BaseTableViewCell {
     }
     
     override func configureUI() {
-        [titleLabel, contentsLabel].forEach {
+        [titleLabel, registDateLabel].forEach {
             self.addSubview($0)
         }
     }
@@ -54,16 +56,18 @@ class MemoListTableViewCell: BaseTableViewCell {
             make.leading.trailing.equalTo(0)
             make.height.equalTo(20)
         }
-//        registDateLabel.snp.makeConstraints { make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-//            make.leading.trailing.equalTo(0)
-//            make.height.equalTo(20)
-//        }
-        contentsLabel.snp.makeConstraints { make in
+        
+        registDateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(0)
             make.height.equalTo(20)
         }
+        
+//        contentLabel.snp.makeConstraints { make in
+//            make.top.equalTo(registDateLabel.snp.bottom).offset(10)
+//            make.leading.trailing.equalTo(0)
+//            make.height.equalTo(20)
+//        }
         
     }
 }

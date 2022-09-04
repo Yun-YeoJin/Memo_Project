@@ -9,16 +9,17 @@ import UIKit
 
 import SnapKit
 import RealmSwift
+import SwiftUI
 
 class MemoListViewController: BaseViewController {
     
     //지연 저장
     lazy var tableView: UITableView = {
-        let view = UITableView()
+        let view = UITableView.init(frame: .zero, style: .insetGrouped)
         view.delegate = self
         view.dataSource = self
         view.register(MemoListTableViewCell.self, forCellReuseIdentifier: MemoListTableViewCell.reusableIdentifier)
-        view.rowHeight = 100
+        view.rowHeight = 70
         view.backgroundColor = .black
         return view
     }()
@@ -29,36 +30,32 @@ class MemoListViewController: BaseViewController {
     
     let repository = MemoRepository()
     
+    var memoCount = 0
+    
     var tasks: Results<Memo>! {
         didSet {
             tableView.reloadData()
         }
     }
-    var pinnedMemos: Results<Memo> {
+    
+    var pinnedMemos: Results<Memo>! {
         repository.pinnedMemo()
     }
     
-    var unPinnedMemos: Results<Memo> {
+    var unPinnedMemos: Results<Memo>! {
         repository.unPinnedMemos()
     }
-    
-    var searchedMemos: Results<Memo>! {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    var memoCount = 0
+
     
     var searchController = UISearchController(searchResultsController: nil)
     
     let pinnedLabel = "고정된 메모"
     let unPinnedLabel = "메모"
     
-   
-    
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         //사용자가 두 번째 접속한건지 UserDefault로 확인
         if UserDefaults.standard.bool(forKey: "SecondRun") == false {
@@ -68,28 +65,33 @@ class MemoListViewController: BaseViewController {
             
         }
         
-        tasks = localRealm.objects(Memo.self).sorted(byKeyPath: "memoDate")
+        tasks = localRealm.objects(Memo.self)
         
+        memoCount = pinnedMemos.count + unPinnedMemos.count
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let formattedNumber = numberFormatter.string(for: memoCount)!
         
         containsTitleOrContent()
         
-       
-       
         searchController.searchBar.placeholder = "검색"
         searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
         searchController.searchBar.tintColor = .systemOrange
         
         searchController.searchBar.delegate = self
-        searchController.searchBar.autocapitalizationType = .none
         searchController.searchResultsUpdater = self
+        searchController.searchBar.autocapitalizationType = .none
         
         navigationItem.searchController = searchController
-      
+        navigationItem.title = "\(formattedNumber)개의 메모"
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true // Large title 사용
         self.navigationItem.hidesSearchBarWhenScrolling = false // Scroll시 Search부분 남겨두기
         
-    }
+        
+        }
     
+    //MARK: viewWillAppear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -102,14 +104,15 @@ class MemoListViewController: BaseViewController {
         tableView.reloadData()
         
     }
-    //SearchBar가 비어있는지 확인
+    
+    //MARK: SearchBar가 비어있는지 확인
     func isSearchBarEmpty() -> Bool {
         
         return searchController.searchBar.text?.isEmpty ?? true
         
     }
     
-    //SearchBar가 활성화 되어있고, SearchBar가 안비어있다면
+    //MARK: SearchBar가 활성화 되어있고, 값이 비어있지 않다면 isFiltering
     func isFiltering() -> Bool {
         
         return searchController.isActive && !isSearchBarEmpty()
@@ -119,16 +122,15 @@ class MemoListViewController: BaseViewController {
     func containsTitleOrContent() {
         
         let predicate = NSPredicate(format: "memoTitle CONTAINS[c] %@ OR memoContent CONTAINS[c]  %@",searchController.searchBar.text!,searchController.searchBar.text!)
-        print(searchController.searchBar.text!)
-        searchedMemos = repository.filterMemos(predicate)
+        tasks = repository.filterMemos(predicate)
 
     }
-    
+    //MARK: TableView UI 설정
     override func configureUI() {
         
         view.addSubview(tableView)
         
-        
+
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let write = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(writeButtonClicked))
         toolbarItems = [spacer, write]
@@ -138,6 +140,7 @@ class MemoListViewController: BaseViewController {
         
     }
     
+    //MARK: 작성버튼 클릭 시
     @objc func writeButtonClicked() {
         
         let vc = MemoDetailViewController()
@@ -145,28 +148,34 @@ class MemoListViewController: BaseViewController {
         
     }
     
+    //MARK: 제약조건 설정
     override func setConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.leading.bottom.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
+    
+    
 }
 
 //MARK: UITableViewDelegate, UITableViewDataSource 설정
 extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     
+    
+    //MARK: 섹션 갯수 설정
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if isFiltering() {
-            return searchedMemos.count
+        if isFiltering() { //searchBar 활성시
+            return tasks.count
             
-        } else {
+        } else { //searchBar 비활성시
             return section == 0 ? pinnedMemos.count : unPinnedMemos.count
         }
         
     }
     
+    //MARK: 섹션의 내용 설정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MemoListTableViewCell.reusableIdentifier, for: indexPath) as? MemoListTableViewCell else {
@@ -174,15 +183,15 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.titleLabel.textColor = .white
-        cell.contentsLabel.textColor = .lightGray
+        cell.registDateLabel.textColor = .lightGray
         
         let nowDate = Calendar.current.dateComponents([.weekOfYear, .day], from: Date())
         
         if isFiltering() {
-            let row = searchedMemos[indexPath.row]
+            let row = tasks[indexPath.row]
             cell.titleLabel.text = row.memoTitle
             
-            
+            //MARK: 메모 작성 날짜 하기 (day, weekOfYear, 나머지)
             let date = row.memoDate
             let releasedDate = Calendar.current.dateComponents([.weekOfYear, .day], from: date)
             
@@ -199,9 +208,10 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             let dateString = dateFormatter.string(from: date)
-            cell.contentsLabel.text = "\(dateString)  \(row.memoContent)"
+            cell.registDateLabel.text = "\(dateString)  \(row.memoContent)"
+            
             cell.titleLabel.highlight(searchText: searchController.searchBar.text!)
-            cell.contentsLabel.highlight(searchText: searchController.searchBar.text!)
+            cell.registDateLabel.highlight(searchText: searchController.searchBar.text!)
             
             
             
@@ -226,7 +236,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 let dateString = dateFormatter.string(from: date)
-                cell.contentsLabel.text = "\(dateString)  \(row.memoContent)"
+                cell.registDateLabel.text = "\(dateString)  \(row.memoContent)"
                 
             } else if indexPath.section == 1 {
                 let row = unPinnedMemos[indexPath.row]
@@ -248,7 +258,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 let dateString = dateFormatter.string(from: date)
-                cell.contentsLabel.text = "\(dateString)  \(row.memoContent)"
+                cell.registDateLabel.text = "\(dateString)  \(row.memoContent)"
             }
         }
         
@@ -256,7 +266,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    //테이블뷰 셀 선택 시 Action
+    //MARK: didSelectRowAt 설정, isFiltering 유무에 따른 데이터 전달하기
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
         let vc = MemoDetailViewController()
@@ -264,7 +274,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
         let backBarItem = UIBarButtonItem(title: "검색", style: .plain , target: self, action: nil)
         
         if isFiltering() {
-            vc.memo = searchedMemos[indexPath.row]
+            vc.memo = tasks[indexPath.row]
             
         } else {
             if indexPath.section == 0 {
@@ -274,26 +284,170 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         self.navigationItem.backBarButtonItem = backBarItem
+        
         transition(vc, transitionStyle: .push)
         
     }
     
-    //MARK: trailingSwipe시 Task 삭제하기
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-   
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //MARK: leadingSwipeActionsConfigurationForRowAt : Pin 고정하기 및 해제하기 (isFiltering & 아닌경우)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        if editingStyle == .delete {
-            repository.deleteMemo(tasks[indexPath.row])
+        if isFiltering() {
+            
+        if tasks[indexPath.row].isPinned == true { //핀 고정 -> 핀 해제
+            
+            let unpinAction = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
+  
+                try! self.localRealm.write {
+                    self.tasks[indexPath.row].isPinned = false
+                }
+                self.tableView.reloadData()
+                
+            }
+            unpinAction.backgroundColor = .systemOrange
+            unpinAction.image = UIImage(systemName: "pin.slash.fill")
+            
+            return UISwipeActionsConfiguration(actions: [unpinAction])
+            
+            
+        } else { //핀 해제 -> 핀 고정
+            
+            let pinAction = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
+             
+                if self.pinnedMemos.count < 5 { // 5개 미만일 때
+                    try! self.localRealm.write {
+                        self.tasks[indexPath.row].isPinned = true
+                    }
+                    self.tableView.reloadData()
+                    
+                } else { // 고정된 메모가 5개 이상일 때
+                    
+                    self.showAlertMessage("고정된 메모가 너무 많아용!!", "메모는 5개까지만 고정이 가능해용!!", "확인!")
+                   
+                }
+            }
+            
+            pinAction.backgroundColor = .systemOrange
+            pinAction.image = UIImage(systemName: "pin.fill")
+            
+            return UISwipeActionsConfiguration(actions: [pinAction])
+            
         }
-        tableView.reloadData()
         
+        } else {
+                
+                if indexPath.section == 0 {
+                    let unpinAction = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
+          
+                        try! self.localRealm.write {
+                            self.tasks[indexPath.row].isPinned = false
+                        }
+                        self.tableView.reloadData()
+                        
+                    }
+                    unpinAction.backgroundColor = .systemOrange
+                    unpinAction.image = UIImage(systemName: "pin.slash.fill")
+                    
+                    return UISwipeActionsConfiguration(actions: [unpinAction])
+                    
+                } else {
+                    let pinAction = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
+                     
+                        if self.pinnedMemos.count < 5 {
+                            try! self.localRealm.write {
+                                self.tasks[indexPath.row].isPinned = true
+                            }
+                            self.tableView.reloadData()
+                            
+                        } else {
+                            
+                            self.showAlertMessage("고정된 메모가 너무 많아용!!", "메모는 5개까지만 고정이 가능해용!!", "확인!")
+                           
+                        }
+                    }
+                    pinAction.backgroundColor = .systemOrange
+                    pinAction.image = UIImage(systemName: "pin.fill")
+                    
+                    return UISwipeActionsConfiguration(actions: [pinAction])
+                }
+                
+            }
     }
     
     
-    //MARK: TableViewHeader 설정
+    //MARK: trailingSwipe시 Task 삭제하기
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        if isFiltering() {
+        
+            let delete = UIContextualAction(style: .destructive, title: "삭제") { action, view, completionHandler in
+    
+            let alert = UIAlertController(title: "메모 삭제", message: "정말로 삭제하실거에용?", preferredStyle: .alert)
+   
+            let ok = UIAlertAction(title: "삭제", style: .default) { _ in
+                try! self.localRealm.write {
+                    self.localRealm.delete(self.tasks[indexPath.row])
+                }
+                self.tableView.reloadData()
+            }
+            let cancel = UIAlertAction(title: "취소", style: .cancel)
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
+        delete.image = UIImage(systemName: "trash.fill")
+        
+        return UISwipeActionsConfiguration(actions: [delete])
+    
+        } else {
+            if indexPath.section == 0 {
+                
+                let delete = UIContextualAction(style: .destructive, title: "삭제") { action, view, completionHandler in
+        
+                let alert = UIAlertController(title: "메모 삭제", message: "정말로 삭제하실거에용?", preferredStyle: .alert)
+       
+                let ok = UIAlertAction(title: "삭제", style: .default) { _ in
+                    try! self.localRealm.write {
+                        self.localRealm.delete(self.tasks[indexPath.row])
+                    }
+                    self.tableView.reloadData()
+                }
+                let cancel = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(ok)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
+                
+                delete.image = UIImage(systemName: "trash.fill")
+                
+                return UISwipeActionsConfiguration(actions: [delete])
+                
+            } else {
+                let delete = UIContextualAction(style: .destructive, title: "삭제") { action, view, completionHandler in
+        
+                let alert = UIAlertController(title: "메모 삭제", message: "정말로 삭제하실거에용?", preferredStyle: .alert)
+       
+                let ok = UIAlertAction(title: "삭제", style: .default) { _ in
+                    try! self.localRealm.write {
+                        self.localRealm.delete(self.tasks[indexPath.row])
+                    }
+                    self.tableView.reloadData()
+                }
+                let cancel = UIAlertAction(title: "취소", style: .cancel)
+                alert.addAction(ok)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
+                
+                delete.image = UIImage(systemName: "trash.fill")
+                
+                return UISwipeActionsConfiguration(actions: [delete])
+            }
+        }
+    }
+    
+
+    //MARK: TableViewHeader UI 설정
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView{
             //테이블뷰 헤더 UI 설정
@@ -305,14 +459,14 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     //헤더 높이 설정
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-            //고정된 메모에 대한 Header Height
+            //SearchBar 활성화 되었을 때
             if isFiltering() {
                 return 70
         
-            //고정된 메모가 없다면!?
+            //SearchBar 비활성화일때
             } else {
                 if pinnedMemos.count == 0 && section == 0 { return 0 }
-                return 70
+                return 50
             }
     }
     
@@ -329,7 +483,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if isFiltering() {
-            return "\(searchedMemos.count)개 검색됨"
+            return "\(tasks.count)개 찾음"
         } else {
             if section == 0 {
                 return pinnedLabel
