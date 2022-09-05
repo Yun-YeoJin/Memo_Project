@@ -45,7 +45,6 @@ class MemoListViewController: BaseViewController {
     var unPinnedMemos: Results<Memo>! {
         repository.unPinnedMemos()
     }
-
     
     var searchController = UISearchController(searchResultsController: nil)
     
@@ -117,6 +116,10 @@ class MemoListViewController: BaseViewController {
         
         return searchController.isActive && !isSearchBarEmpty()
         
+    }
+    
+    func requestRealm() {
+        tasks = repository.fetch()
     }
     
     func containsTitleOrContent() {
@@ -340,7 +343,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                     let unpinAction = UIContextualAction(style: .normal, title: "") { action, view, completionHandler in
           
                         try! self.localRealm.write {
-                            self.tasks[indexPath.row].isPinned = false
+                            self.pinnedMemos[indexPath.row].isPinned = false
                         }
                         self.tableView.reloadData()
                         
@@ -355,7 +358,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                      
                         if self.pinnedMemos.count < 5 {
                             try! self.localRealm.write {
-                                self.tasks[indexPath.row].isPinned = true
+                                self.unPinnedMemos[indexPath.row].isPinned = true
                             }
                             self.tableView.reloadData()
                             
@@ -394,6 +397,8 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             alert.addAction(ok)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
+                
+                self.requestRealm()
         }
         delete.image = UIImage(systemName: "trash.fill")
         
@@ -416,6 +421,8 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 alert.addAction(ok)
                 alert.addAction(cancel)
                 self.present(alert, animated: true, completion: nil)
+                    
+                    self.requestRealm()
             }
                 
                 delete.image = UIImage(systemName: "trash.fill")
@@ -437,6 +444,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 alert.addAction(ok)
                 alert.addAction(cancel)
                 self.present(alert, animated: true, completion: nil)
+                    self.requestRealm()
             }
                 
                 delete.image = UIImage(systemName: "trash.fill")

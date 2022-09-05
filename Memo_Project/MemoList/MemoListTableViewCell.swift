@@ -52,14 +52,14 @@ class MemoListTableViewCell: BaseTableViewCell {
     override func setConstraints() {
         
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(safeAreaLayoutGuide)
-            make.leading.trailing.equalTo(0)
+            make.top.equalTo(8)
+            make.leading.trailing.equalTo(8)
             make.height.equalTo(20)
         }
         
         registDateLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalTo(0)
+            make.leading.trailing.equalTo(8)
             make.height.equalTo(20)
         }
         

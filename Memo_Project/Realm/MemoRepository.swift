@@ -48,5 +48,9 @@ class MemoRepository: MemoRepositoryType {
         }
     }
     
+    func fetch() -> Results<Memo> {
+        return localRealm.objects(Memo.self).sorted(byKeyPath: "memoDate", ascending: false)
+    }
+    
 }
 
