@@ -20,7 +20,7 @@ class MemoListViewController: BaseViewController {
         view.dataSource = self
         view.register(MemoListTableViewCell.self, forCellReuseIdentifier: MemoListTableViewCell.reusableIdentifier)
         view.rowHeight = 70
-        view.backgroundColor = .black
+        view.backgroundColor = Constants.BaseColor.background
         return view
     }()
     
@@ -75,7 +75,7 @@ class MemoListViewController: BaseViewController {
         
         searchController.searchBar.placeholder = "검색"
         searchController.searchBar.setValue("취소", forKey: "cancelButtonText")
-        searchController.searchBar.tintColor = .systemOrange
+        searchController.searchBar.tintColor = Constants.BaseColor.point
         
         searchController.searchBar.delegate = self
         searchController.searchResultsUpdater = self
@@ -138,8 +138,8 @@ class MemoListViewController: BaseViewController {
         let write = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(writeButtonClicked))
         toolbarItems = [spacer, write]
         navigationController?.isToolbarHidden = false
-        navigationController?.toolbar.tintColor = .orange
-        navigationController?.toolbar.backgroundColor = .black
+        navigationController?.toolbar.tintColor = Constants.BaseColor.point
+        navigationController?.toolbar.backgroundColor = Constants.BaseColor.background
         
     }
     
@@ -185,8 +185,8 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.titleLabel.textColor = .white
-        cell.registDateLabel.textColor = .lightGray
+        cell.titleLabel.textColor = Constants.BaseColor.text
+        cell.registDateLabel.textColor = Constants.BaseColor.placeholder
         
         let nowDate = Calendar.current.dateComponents([.weekOfYear, .day], from: Date())
         
@@ -307,7 +307,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 self.tableView.reloadData()
                 
             }
-            unpinAction.backgroundColor = .systemOrange
+            unpinAction.backgroundColor = Constants.BaseColor.point
             unpinAction.image = UIImage(systemName: "pin.slash.fill")
             
             return UISwipeActionsConfiguration(actions: [unpinAction])
@@ -330,7 +330,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
             
-            pinAction.backgroundColor = .systemOrange
+            pinAction.backgroundColor = Constants.BaseColor.point
             pinAction.image = UIImage(systemName: "pin.fill")
             
             return UISwipeActionsConfiguration(actions: [pinAction])
@@ -348,7 +348,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                         self.tableView.reloadData()
                         
                     }
-                    unpinAction.backgroundColor = .systemOrange
+                    unpinAction.backgroundColor = Constants.BaseColor.point
                     unpinAction.image = UIImage(systemName: "pin.slash.fill")
                     
                     return UISwipeActionsConfiguration(actions: [unpinAction])
@@ -368,7 +368,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
                            
                         }
                     }
-                    pinAction.backgroundColor = .systemOrange
+                    pinAction.backgroundColor = Constants.BaseColor.point
                     pinAction.image = UIImage(systemName: "pin.fill")
                     
                     return UISwipeActionsConfiguration(actions: [pinAction])
@@ -459,7 +459,7 @@ extension MemoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView{
             //테이블뷰 헤더 UI 설정
-            headerView.textLabel?.textColor = .white
+            headerView.textLabel?.textColor = Constants.BaseColor.text
             headerView.textLabel?.font = .boldSystemFont(ofSize: 30)
         }
     }

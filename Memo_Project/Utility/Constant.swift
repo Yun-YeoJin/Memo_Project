@@ -18,11 +18,11 @@ enum Constants {
 extension Constants {
     
     enum BaseColor {
-        static let background = UIColor.black
-        static let border = UIColor.white.cgColor
-        static let text = UIColor.white
-        static let placeholder = UIColor.lightGray
-        static let point = UIColor.systemYellow
+        static let background = UIColor.systemBackground
+        static let border = UIColor.label.cgColor
+        static let text = UIColor.label
+        static let placeholder = UIColor.systemGray
+        static let point = UIColor.systemOrange
     }
     
 }

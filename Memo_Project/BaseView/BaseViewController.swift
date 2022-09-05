@@ -12,6 +12,14 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let barColor = UINavigationBarAppearance()
+        barColor.configureWithOpaqueBackground()
+        barColor.backgroundColor = Constants.BaseColor.background
+        
+        self.navigationItem.standardAppearance = barColor
+        self.navigationItem.scrollEdgeAppearance = barColor
+        
         configureUI()
         setConstraints()
         
@@ -20,5 +28,5 @@ class BaseViewController: UIViewController {
     func configureUI() { }
     
     func setConstraints() { }
-
+    
 }
