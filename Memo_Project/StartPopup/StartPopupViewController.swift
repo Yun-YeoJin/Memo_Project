@@ -7,11 +7,10 @@
 
 import UIKit
 
-class StartPopupViewController: BaseViewController {
+class StartPopupViewController: UIViewController {
     
     let mainView = StartPopupView()
-    
-    
+
     override func loadView() {
         self.view = mainView
     }
@@ -19,7 +18,8 @@ class StartPopupViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        mainView.backgroundView.backgroundColor = .lightGray
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+        mainView.backgroundView.backgroundColor = Constants.BaseColor.background
         mainView.titleLabel.text =
         """
 처음 오셨군요!
